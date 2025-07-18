@@ -2,74 +2,473 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>A4Studio | All-in-one animation engine</title>
+  <title>A4Studio | Alok & Aman's Creative Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
 </head>
 <body>
+  <!-- Particle Background -->
+  <div id="particles-bg"></div>
+  
+  <!-- Animated Gradient Background -->
+  <div class="gradient-bg"></div>
+
   <header class="nav">
     <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40">
+        <rect x="5" y="5" width="12" height="12" fill="#ff3d3d" rx="2"/>
+        <rect x="23" y="5" width="12" height="12" fill="#ff8a00" rx="2"/>
+        <rect x="5" y="23" width="12" height="12" fill="#e52e71" rx="2"/>
+        <rect x="23" y="23" width="12" height="12" fill="#38ff7a" rx="2"/>
+      </svg>
       <span class="logo-bold">A4</span>Studio
     </div>
     <nav>
-      <a href="#">Docs</a>
-      <a href="#">Learn</a>
-      <a href="#"><svg style="width:1em;vertical-align:middle;" viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+      <div class="search-container">
+        <input type="text" id="search" placeholder="Search our journey..." class="search-input">
+        <svg class="search-icon" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="21 21l-4.35-4.35"/>
+        </svg>
+      </div>
+      <a href="#journey" class="nav-link">Our Journey</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#learnings" class="nav-link">Learnings</a>
+      <a href="#contact" class="nav-link">Contact</a>
       <button class="sponsor-btn">
-        <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21s-5.3-4.8-8-8c-2.3-2.8-1.3-7 3-7 1.73 0 3 1.43 3 1.43S10.27 6 12 6c4.3 0 5.3 4.2 3 7-2.7 3.2-8 8-8 8z" fill="#e25555"/></svg>
-        Sponsor
+        <div class="heart-container">
+          <svg class="heart-icon" viewBox="0 0 24 24">
+            <path d="M12 21s-5.3-4.8-8-8c-2.3-2.8-1.3-7 3-7 1.73 0 3 1.43 3 1.43S10.27 6 12 6c4.3 0 5.3 4.2 3 7-2.7 3.2-8 8-8 8z" fill="#e25555"/>
+          </svg>
+          <div class="floating-hearts"></div>
+        </div>
+        <span class="sponsor-text">Support Us</span>
       </button>
     </nav>
   </header>
+
   <main class="main-hero">
     <section class="hero-left">
-      <h1 class="hero-title">All-in-one<br>animation<br>engine.</h1>
+      <h1 class="hero-title">Alok & Aman's<br>Creative<br>Journey</h1>
       <p class="hero-desc">
-        A fast and versatile JavaScript library to animate HTML.
+        Follow our story of growth, learning, and building amazing projects together as brothers in tech.
       </p>
       <div class="hero-actions">
-        <button class="action-dark">
-          <span>npm i a4studio</span>
+        <button class="action-dark hover-glow">
+          <svg class="btn-icon" viewBox="0 0 24 24">
+            <path d="M12 2L2 7v10c0 5.55 3.84 9.95 9 11 5.16-1.05 9-5.45 9-11V7l-10-5z"/>
+          </svg>
+          <span>Explore Our Work</span>
         </button>
-        <button class="action-light">
-          Learn more <span class="chevron">&#9662;</span>
+        <button class="action-light hover-slide">
+          Our Story 
+          <svg class="chevron-icon" viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
         </button>
       </div>
     </section>
     <section class="hero-right">
-      <!-- Simplified SVG resembling the radar/animation chart -->
-      <svg class="hero-orb" viewBox="0 0 340 340">
+      <svg class="hero-orb" viewBox="0 0 400 400">
         <defs>
-          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stop-color="#38ff7a"/>
-            <stop offset="100%" stop-color="#ffc300"/>
+            <stop offset="50%" stop-color="#ffc300"/>
+            <stop offset="100%" stop-color="#ff3d3d"/>
           </linearGradient>
           <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#e52e71"/>
             <stop offset="100%" stop-color="#ff8a00"/>
           </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
-        <circle cx="170" cy="170" r="150" fill="none" stroke="url(#g1)" stroke-width="8" stroke-dasharray="55 25 65 20 65 15 45 20 25 40" />
-        <circle cx="170" cy="170" r="125" fill="none" stroke="#222" stroke-width="20" opacity="0.5"/>
-        <circle id="animatedLine" cx="170" cy="170" r="100" fill="none" stroke="url(#g2)" stroke-width="4" stroke-dasharray="5 5"/>
-        <g id="animatedDots">
-          <!-- Dots will be added dynamically -->
-        </g>
-        <!-- Central waveform -->
-        <polyline id="waveform" fill="none" stroke="#ff414d" stroke-width="3"
-            points="60,170 85,120 115,210 140,110 170,200 200,110 220,210 255,120 280,170" />
+        <circle cx="200" cy="200" r="180" fill="none" stroke="url(#g1)" stroke-width="6" stroke-dasharray="60 30 80 25 70 20 50 25 30 45" filter="url(#glow)"/>
+        <circle cx="200" cy="200" r="150" fill="none" stroke="#333" stroke-width="25" opacity="0.3"/>
+        <circle id="animatedLine" cx="200" cy="200" r="120" fill="none" stroke="url(#g2)" stroke-width="5" stroke-dasharray="8 8"/>
+        <g id="animatedDots"></g>
+        <g id="floatingParticles"></g>
+        <text x="200" y="200" text-anchor="middle" dominant-baseline="middle" font-size="24" fill="#fff" font-weight="bold">A4</text>
       </svg>
     </section>
   </main>
-  <footer>
-    <div class="footer-sponsor">
-      Sponsored by
-      <svg viewBox="0 0 40 20" style="height:1em;vertical-align:middle;margin:0 0.3em;" fill="currentColor"><rect x="0" y="0" width="8" height="8"/><rect x="12" y="0" width="8" height="8"/><rect x="6" y="12" width="8" height="8"/><rect x="18" y="12" width="8" height="8"/></svg>
-      <svg viewBox="0 0 20 20" style="height:1em;vertical-align:middle;" fill="currentColor"><polygon points="10,2 13,9 20,10 13,11 10,18 7,11 0,10 7,9"/></svg>
+
+  <!-- Our Skills Section -->
+  <section id="journey" class="skills-section section-reveal">
+    <div class="container">
+      <h2 class="section-title">Our Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-card hover-lift">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <h3>Web Development</h3>
+          <p>Creating modern, responsive websites with cutting-edge technologies and smooth user experiences.</p>
+        </div>
+        <div class="skill-card hover-lift">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3>Creative Design</h3>
+          <p>Crafting beautiful, intuitive designs that tell stories and engage users through visual excellence.</p>
+        </div>
+        <div class="skill-card hover-lift">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+          </div>
+          <h3>Digital Innovation</h3>
+          <p>Exploring emerging technologies and finding creative solutions to complex digital challenges.</p>
+        </div>
+      </div>
     </div>
-    <div style="color:#444;font-size:0.9em; margin-top:0.2em;">&copy; 2025 A4Studio</div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section section-reveal">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2 class="section-title">About A4Studio</h2>
+          <p><strong>A4Studio</strong> represents the journey of two brothers - <strong>Alok</strong> and <strong>Aman</strong> - where A4 combines the first letters of our names with the four letters each name contains. We're passionate about technology, creativity, and sharing our learning experiences with the world.</p>
+          <p>Starting from humble beginnings, we've grown together, learning from each challenge and celebrating every milestone. Our studio isn't just about creating projects; it's about documenting our growth, sharing our knowledge, and inspiring others to pursue their creative dreams.</p>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-number">3+</span>
+              <span class="stat-label">Years Journey</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">25+</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">∞</span>
+              <span class="stat-label">Learning</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="floating-elements">
+            <div class="floating-element" style="--delay: 0s;">Alok</div>
+            <div class="floating-element" style="--delay: 1s;">Aman</div>
+            <div class="floating-element" style="--delay: 2s;">A4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="portfolio-section section-reveal">
+    <div class="container">
+      <h2 class="section-title">Our Projects</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item hover-zoom">
+          <div class="portfolio-image">
+            <div class="demo-animation demo-1"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>Portfolio Website</h3>
+            <p>Our first major project - a personal portfolio showcasing our journey and skills</p>
+            <div class="project-tech">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-item hover-zoom">
+          <div class="portfolio-image">
+            <div class="demo-animation demo-2"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>E-commerce Platform</h3>
+            <p>A full-stack e-commerce solution with modern design and seamless user experience</p>
+            <div class="project-tech">
+              <span>React</span>
+              <span>Node.js</span>
+              <span>MongoDB</span>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-item hover-zoom">
+          <div class="portfolio-image">
+            <div class="demo-animation demo-3"></div>
+          </div>
+          <div class="portfolio-content">
+            <h3>Mobile App UI</h3>
+            <p>Intuitive mobile interface design with smooth animations and user-friendly navigation</p>
+            <div class="project-tech">
+              <span>React Native</span>
+              <span>Firebase</span>
+              <span>Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="pricing-section section-reveal">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card hover-lift">
+          <div class="pricing-header">
+            <h3>Web Development</h3>
+            <div class="price">Custom<span>/quote</span></div>
+          </div>
+          <ul class="pricing-features">
+            <li>✓ Responsive Design</li>
+            <li>✓ Modern Technologies</li>
+            <li>✓ SEO Optimization</li>
+            <li>✓ Performance Focused</li>
+          </ul>
+          <button class="pricing-btn">Get Quote</button>
+        </div>
+        <div class="pricing-card pricing-featured hover-lift">
+          <div class="pricing-header">
+            <h3>Full Stack Solution</h3>
+            <div class="price">Premium<span>/project</span></div>
+          </div>
+          <ul class="pricing-features">
+            <li>✓ Complete Web Solution</li>
+            <li>✓ Database Design</li>
+            <li>✓ API Development</li>
+            <li>✓ Deployment & Support</li>
+          </ul>
+          <button class="pricing-btn">Start Project</button>
+        </div>
+        <div class="pricing-card hover-lift">
+          <div class="pricing-header">
+            <h3>Consultation</h3>
+            <div class="price">Free<span>/session</span></div>
+          </div>
+          <ul class="pricing-features">
+            <li>✓ Project Discussion</li>
+            <li>✓ Technical Guidance</li>
+            <li>✓ Learning Resources</li>
+            <li>✓ Career Advice</li>
+          </ul>
+          <button class="pricing-btn">Book Call</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Brothers -->
+  <section id="team" class="team-section section-reveal">
+    <div class="container">
+      <h2 class="section-title">Meet the Brothers</h2>
+      <div class="team-grid">
+        <div class="team-member hover-lift">
+          <div class="member-avatar">
+            <div class="avatar-placeholder">A</div>
+          </div>
+          <h3>Alok</h3>
+          <p>Co-Founder & Lead Developer</p>
+          <div class="member-bio">
+            <p>Passionate about frontend development and creating seamless user experiences. Loves experimenting with new technologies and design trends.</p>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="team-member hover-lift">
+          <div class="member-avatar">
+            <div class="avatar-placeholder">A</div>
+          </div>
+          <h3>Aman</h3>
+          <p>Co-Founder & Backend Specialist</p>
+          <div class="member-bio">
+            <p>Expert in backend development and system architecture. Enjoys solving complex problems and building scalable solutions.</p>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Testimonials -->
+  <section id="testimonials" class="testimonials-section section-reveal">
+    <div class="container">
+      <h2 class="section-title">What People Say</h2>
+      <div class="testimonials-slider">
+        <div class="testimonial active">
+          <div class="testimonial-content">
+            <p>"Working with Alok and Aman was an incredible experience. Their dedication to quality and attention to detail is remarkable!"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">SK</div>
+              <div class="author-info">
+                <h4>Sarah Kumar</h4>
+                <span>Business Owner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <p>"The brothers delivered exactly what we needed. Professional, creative, and always willing to go the extra mile."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">RJ</div>
+              <div class="author-info">
+                <h4>Raj Patel</h4>
+                <span>Startup Founder</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Learnings Blog -->
+  <section id="learnings" class="blog-section section-reveal">
+    <div class="container">
+      <h2 class="section-title">Our Learning Journey</h2>
+      <div class="blog-grid">
+        <article class="blog-post hover-lift">
+          <div class="post-date">Jan 15, 2025</div>
+          <h3>Starting Our Web Development Journey</h3>
+          <p>How we began our journey in web development and the challenges we faced in the early days...</p>
+          <a href="#" class="read-more">Read More →</a>
+        </article>
+        <article class="blog-post hover-lift">
+          <div class="post-date">Jan 10, 2025</div>
+          <h3>Learning React: Our Experience</h3>
+          <p>Our journey of learning React, the mistakes we made, and the lessons we learned along the way...</p>
+          <a href="#" class="read-more">Read More →</a>
+        </article>
+        <article class="blog-post hover-lift">
+          <div class="post-date">Jan 5, 2025</div>
+          <h3>Building Our First Client Project</h3>
+          <p>The story of our first client project, the challenges we faced, and how we overcame them...</p>
+          <a href="#" class="read-more">Read More →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section section-reveal">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <h3>Let's Connect</h3>
+          <p>We'd love to hear from you! Whether you have a project in mind, want to collaborate, or just want to say hello, feel free to reach out.</p>
+          <div class="contact-methods">
+            <div class="contact-method">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>hello@a4studio.com</span>
+            </div>
+            <div class="contact-method">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+91 9999 999 999</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <span class="form-error"></span>
+          </div>
+          <button type="submit" class="submit-btn hover-glow">
+            Send Message
+            <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><polygon points="22,2 15,22 11,13 2,9 22,2"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 40 40">
+              <rect x="5" y="5" width="12" height="12" fill="#ff3d3d" rx="2"/>
+              <rect x="23" y="5" width="12" height="12" fill="#ff8a00" rx="2"/>
+              <rect x="5" y="23" width="12" height="12" fill="#e52e71" rx="2"/>
+              <rect x="23" y="23" width="12" height="12" fill="#38ff7a" rx="2"/>
+            </svg>
+            <span class="logo-bold">A4</span>Studio
+          </div>
+          <p>Following the creative journey of Alok & Aman.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Journey</h4>
+            <a href="#journey">Our Story</a>
+            <a href="#projects">Projects</a>
+            <a href="#learnings">Learnings</a>
+          </div>
+          <div class="footer-column">
+            <h4>Services</h4>
+            <a href="#services">Web Development</a>
+            <a href="#services">Consultation</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div class="footer-column">
+            <h4>Connect</h4>
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-social">
+          <h4>Follow Our Journey</h4>
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+            </a>
+            <a href="#" class="social-link">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 A4Studio - Alok & Aman. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
+
   <script src="main.js"></script>
 </body>
 </html>
