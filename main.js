@@ -1,109 +1,72 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #222;
-  color: #fff;
-  min-height: 100vh;
+// Hero section entry animations
+anime.timeline({ easing: 'easeOutExpo', duration: 1100 })
+  .add({
+    targets: '.hero-title',
+    translateY: [60, 0],
+    opacity: [0, 1]
+  })
+  .add({
+    targets: '.hero-subtitle',
+    translateY: [40, 0],
+    opacity: [0, 1]
+  }, '-=800')
+  .add({
+    targets: '.hero-btn',
+    scale: [0.7, 1],
+    opacity: [0, 1]
+  }, '-=700');
+
+// Animate sections as they scroll into view
+const revealEls = document.querySelectorAll('.reveal');
+
+function animateReveal(el) {
+  anime({
+    targets: el,
+    translateY: [40, 0],
+    opacity: [0, 1],
+    duration: 1000,
+    easing: 'easeOutExpo'
+  });
 }
 
-/* Sponsor Button Styles */
-.sponsor-btn {
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-  padding: 0.7em 1.5em;
-  border: 2px solid #e25555;
-  background: transparent;
-  color: #e25555;
-  font-size: 1.1em;
-  border-radius: 8px;
-  cursor: pointer;
-  overflow: visible;
-  transition: background .2s, color .2s;
-  margin-bottom: 2rem;
-}
-.sponsor-btn:hover, .sponsor-btn:focus {
-  background: #e25555;
-  color: #fff;
-}
-.hearts {
-  width: 30px;
-  height: 30px;
-  margin-right: 8px;
-  overflow: visible;
-}
-.heart {
-  fill: #e25555;
-  opacity: 0.7;
-  transform-origin: center;
-  transition: fill 0.2s;
+function handleScrollReveal() {
+  revealEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 80 && el.style.opacity !== '1') {
+      animateReveal(el);
+      el.style.opacity = '1';
+    }
+  });
 }
 
-header.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: linear-gradient(120deg, #ff8a00 0%, #e52e71 100%);
-  text-align: center;
+window.addEventListener('scroll', handleScrollReveal, { passive: true });
+window.addEventListener('DOMContentLoaded', handleScrollReveal);
+
+// Floating heart effect on the sponsor button
+function createFloatHearts() {
+  const svg = document.querySelector('.sponsor-btn .hearts');
+  if (!svg) return;
+  for (let i = 0; i < 3; i++) {
+    let heart = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    heart.setAttribute('d', 'M20 36s-8-7.33-12-12c-3.5-4.25-2-10 4-10 2.86 0 4 2 4 2s1.14-2 4-2c6 0 7.5 5.75 4 10-4 4.67-12 12-12 12z');
+    heart.setAttribute('class', 'heart');
+    svg.appendChild(heart);
+
+    anime({
+      targets: heart,
+      translateY: [-15, -50 - Math.random() * 15],
+      scale: [0.6, 1 + Math.random() * 0.2],
+      opacity: [0.7, 0],
+      easing: 'easeOutCubic',
+      delay: i * 300 + Math.random() * 200,
+      duration: 1500 + Math.random() * 800,
+      complete: function(anim) {
+        svg.removeChild(heart);
+      }
+    });
+  }
 }
 
-.hero-title {
-  font-size: 3rem;
-  letter-spacing: 2px;
-  opacity: 0;
-}
-
-.hero-subtitle {
-  margin-top: 1rem;
-  opacity: 0;
-}
-
-.hero-btn {
-  margin-top: 2rem;
-  padding: 0.8em 2em;
-  font-size: 1rem;
-  background: #fff;
-  color: #e52e71;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  opacity: 0;
-  transition: background 0.3s, color 0.3s;
-}
-
-.hero-btn:hover {
-  background: #e52e71;
-  color: #fff;
-}
-
-main {
-  padding: 3em 1em;
-  max-width: 800px;
-  margin: auto;
-}
-
-section {
-  margin-bottom: 3em;
-  background: #292929;
-  border-radius: 12px;
-  padding: 2em;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-}
-
-h2 {
-  margin-top: 0;
-}
-
-footer {
-  text-align: center;
-  padding: 1em;
-  color: #aaa;
-  font-size: 0.85em;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-}
+document.querySelector('.sponsor-btn').addEventListener('mouseenter', function() {
+  createFloatHearts();
+});
