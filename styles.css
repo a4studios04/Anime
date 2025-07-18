@@ -6,6 +6,39 @@ body {
   min-height: 100vh;
 }
 
+/* Sponsor Button Styles */
+.sponsor-btn {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 0.7em 1.5em;
+  border: 2px solid #e25555;
+  background: transparent;
+  color: #e25555;
+  font-size: 1.1em;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: visible;
+  transition: background .2s, color .2s;
+  margin-bottom: 2rem;
+}
+.sponsor-btn:hover, .sponsor-btn:focus {
+  background: #e25555;
+  color: #fff;
+}
+.hearts {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  overflow: visible;
+}
+.heart {
+  fill: #e25555;
+  opacity: 0.7;
+  transform-origin: center;
+  transition: fill 0.2s;
+}
+
 header.hero {
   display: flex;
   flex-direction: column;
