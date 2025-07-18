@@ -1,72 +1,95 @@
-// Hero section entry animations
-anime.timeline({ easing: 'easeOutExpo', duration: 1100 })
+// Animate hero elements in
+anime.timeline({ easing: 'easeOutExpo', duration: 920 })
   .add({
     targets: '.hero-title',
-    translateY: [60, 0],
+    translateX: [-30, 0],
     opacity: [0, 1]
   })
   .add({
-    targets: '.hero-subtitle',
-    translateY: [40, 0],
+    targets: '.hero-desc',
+    translateX: [-20, 0],
     opacity: [0, 1]
-  }, '-=800')
+  }, '-=700')
   .add({
-    targets: '.hero-btn',
-    scale: [0.7, 1],
+    targets: '.hero-actions',
+    translateX: [-15, 0],
     opacity: [0, 1]
-  }, '-=700');
+  }, '-=500');
 
-// Animate sections as they scroll into view
-const revealEls = document.querySelectorAll('.reveal');
-
-function animateReveal(el) {
-  anime({
-    targets: el,
-    translateY: [40, 0],
-    opacity: [0, 1],
-    duration: 1000,
-    easing: 'easeOutExpo'
-  });
-}
-
-function handleScrollReveal() {
-  revealEls.forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 80 && el.style.opacity !== '1') {
-      animateReveal(el);
-      el.style.opacity = '1';
-    }
-  });
-}
-
-window.addEventListener('scroll', handleScrollReveal, { passive: true });
-window.addEventListener('DOMContentLoaded', handleScrollReveal);
-
-// Floating heart effect on the sponsor button
-function createFloatHearts() {
-  const svg = document.querySelector('.sponsor-btn .hearts');
-  if (!svg) return;
-  for (let i = 0; i < 3; i++) {
-    let heart = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    heart.setAttribute('d', 'M20 36s-8-7.33-12-12c-3.5-4.25-2-10 4-10 2.86 0 4 2 4 2s1.14-2 4-2c6 0 7.5 5.75 4 10-4 4.67-12 12-12 12z');
-    heart.setAttribute('class', 'heart');
-    svg.appendChild(heart);
-
-    anime({
-      targets: heart,
-      translateY: [-15, -50 - Math.random() * 15],
-      scale: [0.6, 1 + Math.random() * 0.2],
-      opacity: [0.7, 0],
-      easing: 'easeOutCubic',
-      delay: i * 300 + Math.random() * 200,
-      duration: 1500 + Math.random() * 800,
-      complete: function(anim) {
-        svg.removeChild(heart);
-      }
-    });
-  }
-}
-
-document.querySelector('.sponsor-btn').addEventListener('mouseenter', function() {
-  createFloatHearts();
+// Hero SVG circular glow pulse
+anime({
+  targets: '.hero-orb > circle:first-child',
+  strokeDashoffset: [anime.setDashoffset, 0],
+  duration: 2000,
+  direction: 'alternate',
+  loop: true,
+  easing: 'easeInOutSine'
 });
+
+// Hero SVG animated line dash/pulse
+anime({
+  targets: '#animatedLine',
+  strokeDashoffset: [0, -500],
+  duration: 1800,
+  loop: true,
+  easing: 'linear'
+});
+
+// Animate 'waveform' polyline
+anime({
+  targets: '#waveform',
+  stroke: [
+    { value: '#ff414d' },
+    { value: '#ff8a00' },
+    { value: '#e52e71' },
+    { value: '#ff414d' }
+  ],
+  delay: 0,
+  duration: 2400,
+  direction: 'alternate',
+  loop: true,
+  easing: 'easeInOutSine'
+});
+
+// Animated dots along the ring (sample for effect)
+const dotsG = document.getElementById('animatedDots');
+for (let i = 0; i < 17; i++) {
+  let dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  let angle = (2 * Math.PI / 17) * i + Math.PI/6;
+  let r = 100, cx = 170 + r * Math.cos(angle), cy = 170 + r * Math.sin(angle);
+  dot.setAttribute('cx', cx); dot.setAttribute('cy', cy);
+  dot.setAttribute('r', 5);
+  dot.setAttribute('fill', '#ff414d');
+  dot.setAttribute('opacity', '0.65');
+  dotsG.appendChild(dot);
+
+  anime({
+    targets: dot,
+    scale: [
+      { value: 1.35, duration: 900, easing: 'easeInOutSine' },
+      { value: 1, duration: 900, easing: 'easeInOutSine' }
+    ],
+    loop: true,
+    delay: i * 80
+  });
+}
+
+// Sponsor button (heart pulse)
+const sponsorBtn = document.querySelector('.sponsor-btn');
+const heartIcon = sponsorBtn.querySelector('.heart-icon path');
+
+function pulseHeart() {
+  anime({
+    targets: heartIcon,
+    scale: [
+      { value: 1.2, duration: 180, easing: 'easeOutCubic' },
+      { value: 1, duration: 320, easing: 'easeInOutBack' }
+    ],
+    fill: [
+      { value: "#f46363", duration: 100 },
+      { value: "#e25555", duration: 400 }
+    ]
+  });
+}
+sponsorBtn.addEventListener('mouseenter', pulseHeart);
+sponsorBtn.addEventListener('focus', pulseHeart);
